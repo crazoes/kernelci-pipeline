@@ -534,6 +534,22 @@ jobs:
 
   fault-injection-x86-intel-cros-kernel: *fault-injection-cros-kernel-job
 
+  kbuild-gcc-12-x86-chromeos-daily-intel-fault-injection:
+    <<: *kbuild-gcc-12-x86-chromeos-job
+    params:
+      <<: *kbuild-gcc-12-x86-chromeos-intel-params
+      frequency: 1d
+      fragments:
+        - lab-setup
+        - x86-board
+        - fault-injection
+        - CONFIG_MODULE_COMPRESS=n
+        - CONFIG_MODULE_COMPRESS_NONE=y
+    rules:
+      <<: *kbuild-gcc-12-x86-chromeos-rules
+      tree:
+        - 'chromiumos:chromeos-6.6'
+
   kbuild-clang-17-arm64-chromeos-daily-mediatek:
     <<: *kbuild-clang-17-arm64-chromeos-job
     params:
